@@ -17,23 +17,23 @@ router.get('/', function(req, res, next) {
   //   res.json({message: 'error', data: err});
   // });
 
-  // // 检索单条数据
-  // test.query({
-  //   where: {
-  //     id: 1
-  //   }
-  // }).fetch().then((data) => {
-  //   res.json({
-  //     message: "done",
-  //     data: data
-  //   })
-  // }).catch(err => {
-  //   console.log(err)
-  //   res.json({
-  //     message: "err",
-  //     data: new Date().getTime()
-  //   })
-  // })
+  // 检索单条数据
+  test.forge().query({
+    where: {
+      id: 1
+    }
+  }).fetch().then((data) => {
+    res.json({
+      message: "done",
+      data: data
+    })
+  }).catch(err => {
+    console.log(err)
+    res.json({
+      message: "err",
+      data: err
+    })
+  })
 
   // // 添加单条记录
   // new test({
@@ -68,22 +68,22 @@ router.get('/', function(req, res, next) {
   //   })
   // })
 
-  // 删除某一条数据
-  test.forge()
-      .where('id', '=', 5)
-      .destroy()
-      .then(data => {
-        res.json({
-          message: "done",
-          data
-        })
-      })
-      .catch(error => {
-        res.json({
-          message: "error",
-          data: error
-        })
-      })
+  // // 删除某一条数据
+  // test.forge()
+  //     .where('id', '=', 5)
+  //     .destroy()
+  //     .then(data => {
+  //       res.json({
+  //         message: "done",
+  //         data
+  //       })
+  //     })
+  //     .catch(error => {
+  //       res.json({
+  //         message: "error",
+  //         data: error
+  //       })
+  //     })
 
 });
 
