@@ -5,6 +5,6 @@ exports.config = {
       host: 'localhost',
       user: 'root',
       password: '12345678',
-      database: 'edb', // 数据库名称
+      database: 'bookshare', // 数据库名称
     }
 };
