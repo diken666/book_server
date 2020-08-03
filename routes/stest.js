@@ -15,8 +15,9 @@ router.get('/', function(req, res, next) {
   //     id: 1
   //   }
   // })
+
   // 查找多条数据
-  // let data = Test.findAll()
+  let data = Test.findAll()
 
   // 修改数据
   // let data = Test.update({
@@ -27,16 +28,18 @@ router.get('/', function(req, res, next) {
   //   }
   // })
 
-  // 删除数据
-  let data = Test.destroy({
-    where: {
-      id: 2
-    }
-  })
+  // // 删除数据
+  // let data = Test.destroy({
+  //   where: {
+  //     id: 2
+  //   }
+  // })
+  console.log(req.cookies)
   data.then(info => {
     res.json({
       msg: "ok",
-      data: info
+      data: info,
+      cookie: req.cookies
     })
   }).catch(err => {
     res.json({

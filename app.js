@@ -9,6 +9,8 @@ let usersRouter = require('./routes/users');
 let testRouter = require('./routes/test')
 let stestRouter = require('./routes/stest')
 
+let wxLoginRouter = require('./routes/wxlogin')
+
 let app = express();
 
 // view engine setup
@@ -25,6 +27,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/test', testRouter)
 app.use('/stest', stestRouter)
+
+app.use('/wxlogin', wxLoginRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
