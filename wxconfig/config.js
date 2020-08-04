@@ -1,5 +1,5 @@
 
 module.exports = {
   appId: "wxfa4330bcef7d0a25",
-  appSecret: "123"
+  appSecret: "b5dc5957200113f2954cfb4994c82eb9"
 }

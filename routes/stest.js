@@ -37,12 +37,14 @@ router.get('/', function(req, res, next) {
   console.log(req.cookies)
   data.then(info => {
     res.json({
+      code: 1,
       msg: "ok",
       data: info,
       cookie: req.cookies
     })
   }).catch(err => {
     res.json({
+      code: 0,
       msg: "error",
       data: err
     })
