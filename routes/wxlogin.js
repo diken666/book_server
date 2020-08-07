@@ -5,7 +5,6 @@ const wxConfig = require("../wxconfig/config")
 const sequelize = require('../db/dbConn')
 
 const User = require('../db/models/user')
-const UserStatus = require('../db/models/userStatus')
 
 router.post('/', (req, res, next) => {
   let { code, name, avatar } = req.body
@@ -32,11 +31,8 @@ router.post('/', (req, res, next) => {
               await User.create({
                 uid: openid,
                 name,
-                avatar
-              }, { transaction: t })
-              await UserStatus.create({
-                uid: openid,
-                token: token,
+                avatar,
+                token,
                 update_time: new Date().getTime().toString()
               }, { transaction: t })
               res.json({
@@ -54,12 +50,7 @@ router.post('/', (req, res, next) => {
             sequelize.transaction(async t => {
               await User.update({
                 name,
-                avatar
-              }, {
-                where: { uid: openid },
-                transaction: t
-              })
-              await UserStatus.update({
+                avatar,
                 token,
                 update_time: new Date().getTime().toString()
               }, {
@@ -68,8 +59,7 @@ router.post('/', (req, res, next) => {
               })
               res.json({
                 code: 1,
-                userInfo,
-                openid
+                msg: "登录成功"
               })
             }).catch(e => {
               res.json({

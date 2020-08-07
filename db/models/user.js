@@ -19,6 +19,14 @@ const user = sequelize.define('user', {
   phone: {
     type: Sequelize.STRING(40),
     allowNull: true
+  },
+  token: {
+    type: Sequelize.STRING(100),
+    allowNull: true
+  },
+  update_time: {
+    type: Sequelize.STRING(),
+    allowNull: true
   }
 }, {
   timestamps: false,
