@@ -6,7 +6,6 @@ let logger = require('morgan');
 
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
-let testRouter = require('./routes/test')
 let stestRouter = require('./routes/stest')
 
 let wxLoginRouter = require('./routes/wxlogin')
@@ -25,7 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/test', testRouter)
 app.use('/stest', stestRouter)
 
 app.use('/wxlogin', wxLoginRouter)
