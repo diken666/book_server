@@ -18,7 +18,6 @@ router.post('/', (req, res, next) => {
     }, async (err, response, body) => {
       if (response.statusCode === 200) {
         let { openid } = JSON.parse(body)
-        // console.log(openid, response)
         if (openid) {
           // 查找是否存在该用户
           let userInfo = await User.findOne({
@@ -34,18 +33,17 @@ router.post('/', (req, res, next) => {
                 uid: openid,
                 name,
                 avatar
-              })
+              }, { transaction: t })
               await UserStatus.create({
                 uid: openid,
                 token: token,
                 update_time: new Date().getTime().toString()
-              })
+              }, { transaction: t })
               res.json({
                 code: 1,
                 msg: "登录成功"
               })
             }).catch(e => {
-              console.log(e)
               res.json({
                 code: 0,
                 msg: "登录失败"
@@ -58,17 +56,15 @@ router.post('/', (req, res, next) => {
                 name,
                 avatar
               }, {
-                where: {
-                  uid: openid
-                }
+                where: { uid: openid },
+                transaction: t
               })
               await UserStatus.update({
                 token,
                 update_time: new Date().getTime().toString()
               }, {
-                where: {
-                  uid: openid
-                }
+                where: { uid: openid },
+                transaction: t
               })
               res.json({
                 code: 1,
@@ -76,7 +72,6 @@ router.post('/', (req, res, next) => {
                 openid
               })
             }).catch(e => {
-              console.log(e)
               res.json({
                 code: 0,
                 msg: "登录失败"
@@ -86,7 +81,7 @@ router.post('/', (req, res, next) => {
         } else {
           res.json({
             code: 0,
-            msg: "登录失败"
+            msg: "登录失败，未获取到用户信息"
           })
         }
       } else {
