@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const request = require("request")
+const jwt = require("jsonwebtoken")
 const wxConfig = require("../wxconfig/config")
 const sequelize = require('../db/dbConn')
 
@@ -8,9 +9,7 @@ const User = require('../db/models/user')
 
 router.post('/', (req, res, next) => {
   let { code, name, avatar } = req.body
-  let { token } = req.headers
   // console.log(code, name, avatar)
-  console.log(token)
   if (code) {
     request.get({
       url: `https://api.weixin.qq.com/sns/jscode2session?appid=${wxConfig.appId}&secret=${wxConfig.appSecret}&js_code=${code}&grant_type=authorization_code`
@@ -24,7 +23,20 @@ router.post('/', (req, res, next) => {
               uid: openid
             }
           })
+          let token = ""
+          try {
+            token = jwt.sign({
+              uid: openid
+            }, wxConfig.signSecret, { expiresIn: "3day" })
+          } catch(e) {
+            res.json({
+              code: 0,
+              msg: "token签名失败"
+            })
+            return
+          }
           // 当用户信息不存在时，创建该用户信息
+          console.log("-->", token)
           if (!userInfo) {
             // 事务
             sequelize.transaction(async (t) => {
@@ -32,7 +44,6 @@ router.post('/', (req, res, next) => {
                 uid: openid,
                 name,
                 avatar,
-                token,
                 update_time: new Date().getTime().toString()
               }, { transaction: t })
               res.json({
@@ -51,7 +62,6 @@ router.post('/', (req, res, next) => {
               await User.update({
                 name,
                 avatar,
-                token,
                 update_time: new Date().getTime().toString()
               }, {
                 where: { uid: openid },
