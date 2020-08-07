@@ -9,6 +9,7 @@ let usersRouter = require('./routes/users');
 let stestRouter = require('./routes/stest')
 
 let wxLoginRouter = require('./routes/wxlogin')
+let createCircleRouter = require('./routes/createCircle')
 
 let app = express();
 
@@ -27,6 +28,7 @@ app.use('/users', usersRouter);
 app.use('/stest', stestRouter)
 
 app.use('/wxlogin', wxLoginRouter)
+app.use('/create-circle', createCircleRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

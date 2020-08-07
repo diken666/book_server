@@ -8,6 +8,14 @@ const Circle = sequelize.define('circle', {
     allowNull: false,
     unique: true
   },
+  circle_name: {
+    type: Sequelize.STRING(40),
+    allowNull: false,
+  },
+  circle_avatar: {
+    type: Sequelize.STRING(200),
+    allowNull: false
+  },
   uid: {
     type: Sequelize.STRING(40),
     allowNull: false,
