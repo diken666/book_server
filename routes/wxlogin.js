@@ -37,7 +37,7 @@ router.post('/', (req, res, next) => {
               }, { transaction: t })
               res.json({
                 code: 1,
-                msg: "登录成功"
+                statusMsg: "登录成功"
               })
             }).catch(e => {
               res.json({
@@ -59,7 +59,7 @@ router.post('/', (req, res, next) => {
               })
               res.json({
                 code: 1,
-                msg: "登录成功"
+                statusMsg: "登录成功"
               })
             }).catch(e => {
               res.json({
