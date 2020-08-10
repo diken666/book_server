@@ -36,7 +36,6 @@ router.post('/', (req, res, next) => {
             return
           }
           // 当用户信息不存在时，创建该用户信息
-          console.log("-->", token)
           if (!userInfo) {
             // 事务
             sequelize.transaction(async (t) => {
@@ -48,7 +47,10 @@ router.post('/', (req, res, next) => {
               }, { transaction: t })
               res.json({
                 code: 1,
-                statusMsg: "登录成功"
+                statusMsg: "登录成功",
+                data: {
+                  token
+                }
               })
             }).catch(e => {
               res.json({
@@ -69,7 +71,10 @@ router.post('/', (req, res, next) => {
               })
               res.json({
                 code: 1,
-                statusMsg: "登录成功"
+                statusMsg: "登录成功",
+                data: {
+                  token
+                }
               })
             }).catch(e => {
               res.json({

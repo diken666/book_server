@@ -2,12 +2,12 @@ const Sequelize = require("sequelize")
 const sequelize = require("../dbConn")
 
 const CircleUser = sequelize.define('circle_user', {
-  id: {
-    type: Sequelize.INTEGER(),
-    primaryKey: true,
-    allowNull: false,
-    unique: true
-  },
+  // id: {
+  //   type: Sequelize.INTEGER(),
+  //   primaryKey: true,
+  //   allowNull: false,
+  //   unique: true
+  // },
   uid: {
     type: Sequelize.STRING(40),
     allowNull: false,
